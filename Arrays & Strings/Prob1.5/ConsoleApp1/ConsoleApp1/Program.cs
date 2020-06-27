@@ -12,7 +12,7 @@ namespace ConsoleApp1
         static void Main(string[] args)
         {
             Console.WriteLine("Enter String:");
-            string str1= Console.ReadLine();
+            string str1 = Console.ReadLine();
             Console.WriteLine(CompressStringDict(str1));
         }
 
@@ -23,7 +23,7 @@ namespace ConsoleApp1
 
             char[] inpstr = input.ToCharArray();
             int counter = 1;
-            for(int i = 0,j=1; j < inpstr.Length; i++,j++)
+            for (int i = 0, j = 1; j < inpstr.Length; i++, j++)
             {
                 if (j == inpstr.Length - 1)
                 {
@@ -52,23 +52,27 @@ namespace ConsoleApp1
         {
             Dictionary<char, int> chars = new Dictionary<char, int>();
             StringBuilder output = new StringBuilder();
-            for(int i = 0; i < input.Length; i++)
+            for (int i = 0; i < input.Length; i++)
             {
                 if (chars.ContainsKey(input[i]))
                     chars[input[i]] = ++chars[input[i]];
                 else
                 {
-                    if(chars.Count>0)
+                    if (chars.Count > 0)
                     {
                         output.Append(chars.First().Key + chars.First().Value.ToString());
                         chars.Clear();
                     }
                     chars.Add(input[i], 1);
                 }
+                if (i == input.Length - 1)
+                {
+                    output.Append(chars.First().Key + chars.First().Value.ToString());
+                    chars.Clear();
+                }
             }
-            output.Append(chars.First().Key + chars.First().Value.ToString());
-            chars.Clear();
-            return output.Length >= input.Length ? input : output.ToString(); 
+
+            return output.Length >= input.Length ? input : output.ToString();
         }
     }
 }
